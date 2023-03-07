@@ -41,6 +41,10 @@ public class Movie {
         return genres;
     }
 
+    /**
+     * Movies werden erstellt, Array wird zu Liste umgewandelt, da genresList final ist, ist der asList parse fine.
+     * @return vorhandenen Filme
+     */
     public static List<Movie> initializeMovies(){
         List<Movie> movies = new ArrayList<>();
         // add genres to the List
