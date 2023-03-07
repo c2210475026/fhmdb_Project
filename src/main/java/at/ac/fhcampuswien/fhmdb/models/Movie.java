@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Comparable<Movie>{
 
     private final String title;
     private final String description;
@@ -53,6 +53,10 @@ public class Movie {
         movies.add(new Movie("Forrest Gump", "A comedy-drama about a man with a low IQ who witnesses and unwittingly influences several defining historical events in the 20th century USA.", Arrays.asList(Genre.COMEDY, Genre.DRAMA)));
         // return the list of movies
         return movies;
+    }
+    @Override
+    public int compareTo(Movie o) {
+        return this.getTitle().compareTo(o.getTitle());
     }
 
 
