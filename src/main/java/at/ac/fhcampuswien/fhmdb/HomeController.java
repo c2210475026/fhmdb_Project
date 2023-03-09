@@ -64,6 +64,11 @@ public class HomeController implements Initializable {
 
     }
 
+    /**
+     * List will be sorted ascended or descended
+     * @param movieList list that has to be sorted
+     * @param ascendedOrder true: ascended, false: descended
+     */
     public void sortList(List<Movie> movieList, boolean ascendedOrder){
         if (ascendedOrder){
             Collections.sort(movieList);
