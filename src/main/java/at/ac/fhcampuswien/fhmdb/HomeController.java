@@ -53,14 +53,22 @@ public class HomeController implements Initializable {
         // Sort button example:
         sortBtn.setOnAction(actionEvent -> {
             if(sortBtn.getText().equals("Sort (asc)")) {
-                Collections.sort(observableMovies);
+                sortList(observableMovies,true);
                 sortBtn.setText("Sort (desc)");
             } else {
-                Collections.sort(observableMovies,Collections.reverseOrder());
+                sortList(observableMovies,false);
                 sortBtn.setText("Sort (asc)");
             }
         });
 
 
+    }
+
+    public void sortList(List<Movie> movieList, boolean ascendedOrder){
+        if (ascendedOrder){
+            Collections.sort(movieList);
+        }else {
+            Collections.sort(movieList,Collections.reverseOrder());
+        }
     }
 }
