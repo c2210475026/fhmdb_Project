@@ -114,4 +114,15 @@ class HomeControllerTest {
         assertNull(movieList.get(3).getTitle());
     }
 
+    @Test
+    void test_movies_filter_by_genre(){
+        //setup
+        HomeController homeController = new HomeController();
+        homeController.allMovies.clear();
+        homeController.allMovies.add(new Movie("Abction Movie", "doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
+        //action
+        //homeController.sortList(HomeController.movieList, false);
+        //assert
+        //assertEquals("D", movieList.get(0).getTitle());
+    }
 }
