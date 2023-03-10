@@ -39,6 +39,7 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setupListWithOutNullObjects(allMovies);
         observableMovies.addAll(allMovies);         // add dummy data to observable list
 
         // initialize UI stuff
@@ -111,6 +112,10 @@ public class HomeController implements Initializable {
         nullTitlesToEndOfList(movieList);
     }
 
+    /**
+     * All Movies with Null as Title are put to the end of the List
+     * @param movieList List who will be changed
+     */
     public void nullTitlesToEndOfList(List<Movie> movieList){
         List<Movie> nullList = new ArrayList<>();
         for (Movie movie: movieList){
@@ -120,5 +125,14 @@ public class HomeController implements Initializable {
         }
         movieList.removeAll(nullList);
         movieList.addAll(nullList);
+    }
+
+    /**
+     * Delete all Null Objects in the List
+     * @param list list that will be changed
+     */
+    public void setupListWithOutNullObjects(List<Movie> list){
+        //while(list.remove(null));
+        list.removeAll(Collections.singleton(null));
     }
 }
