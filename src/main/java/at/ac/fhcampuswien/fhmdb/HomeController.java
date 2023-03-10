@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -107,5 +108,17 @@ public class HomeController implements Initializable {
         }else {
             Collections.sort(movieList,Collections.reverseOrder());
         }
+        nullTitlesToEndOfList(movieList);
+    }
+
+    public void nullTitlesToEndOfList(List<Movie> movieList){
+        List<Movie> nullList = new ArrayList<>();
+        for (Movie movie: movieList){
+            if(movie.getTitle() == null){
+                nullList.add(movie);
+            }
+        }
+        movieList.removeAll(nullList);
+        movieList.addAll(nullList);
     }
 }

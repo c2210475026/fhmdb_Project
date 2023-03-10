@@ -2,9 +2,11 @@ package at.ac.fhcampuswien.fhmdb.models;
 
 
 
+import java.lang.module.ModuleDescriptor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Movie implements Comparable<Movie>{
 
@@ -30,8 +32,13 @@ public class Movie implements Comparable<Movie>{
     }
 
     public String getTitle() {
-        return title;
+        try{
+            return title;
+        }catch (NullPointerException e){
+            return null;
+        }
     }
+
 
     public String getDescription() {
         return description;
@@ -58,14 +65,24 @@ public class Movie implements Comparable<Movie>{
         movies.add(new Movie("The Matrix", "A science fiction action film about a computer hacker who discovers the truth about reality.", Arrays.asList(Movie.Genre.ACTION, Movie.Genre.SCIENCE_FICTION)));
         movies.add(new Movie("Pulp Fiction", "A crime film featuring multiple storylines and characters in Los Angeles.", Arrays.asList(Movie.Genre.CRIME, Movie.Genre.DRAMA)));
         movies.add(new Movie("Jurassic Park", "A science fiction adventure film about a theme park with genetically cloned dinosaurs.", Arrays.asList(Movie.Genre.ADVENTURE, Movie.Genre.SCIENCE_FICTION)));
-        movies.add(null);
-        movies.add(new Movie(null, "A space opera about a group of rebels fighting against the evil Empire.", Arrays.asList(Movie.Genre.ACTION, Movie.Genre.ADVENTURE, Movie.Genre.FANTASY)));
         // return the list of movies
         return movies;
     }
     @Override
     public int compareTo(Movie o) {
-        return this.getTitle().compareTo(o.getTitle());
+        if (Objects.equals(this.getTitle(), null) || Objects.equals(o.getTitle(), null)) {
+            if (Objects.equals(this.getTitle(), null)) {
+                if (Objects.equals(o.getTitle(), null)) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            } else {
+                return -1;
+            }
+        }else{
+            return this.getTitle().compareTo(o.getTitle());
+        }
     }
 
 
