@@ -37,6 +37,9 @@ public class HomeController implements Initializable {
 
     private  ObservableList<Movie> observableMovies = FXCollections.observableArrayList();   // automatically updates corresponding UI elements when underlying data changes
 
+    List<Movie> genreResults = FXCollections.observableArrayList();
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         observableMovies.addAll(allMovies);         // add dummy data to observable list
@@ -91,6 +94,26 @@ public class HomeController implements Initializable {
 
     }
 
+
+    public void searchText(List<Movie> genreSearchList){
+        String textValue = searchField.getText();
+        observableMovies.clear();
+        String searchTerm = textValue.toLowerCase();
+        ObservableList<Movie> searchResults = FXCollections.observableArrayList();
+        searchResults.clear();
+
+            for (Movie movie : genreSearchList) {
+                String movieGenres=movie.getGenres().toString();
+                if (movie.getTitle().toLowerCase().contains(searchTerm) || movie.getDescription().toLowerCase().contains(searchTerm)|| movieGenres.contains(searchTerm)) {
+                    searchResults.add(movie);
+                }
+            }
+
+
+            observableMovies.addAll(searchResults);
+
+
+    }
 
     /**
      * List will be sorted ascended or descended
