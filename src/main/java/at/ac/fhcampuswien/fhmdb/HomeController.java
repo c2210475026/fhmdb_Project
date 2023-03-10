@@ -54,7 +54,9 @@ public class HomeController implements Initializable {
 
         // TODO add event handlers to buttons and call the regarding methods
         // either set event handlers in the fxml file (onAction) or add them here
+
         genreComboBox.setOnAction(actionEvent -> {
+            genreComboBox.getValue();
 
         });
 
