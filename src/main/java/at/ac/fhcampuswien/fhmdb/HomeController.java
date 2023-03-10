@@ -60,7 +60,7 @@ public class HomeController implements Initializable {
         // TODO add event handlers to buttons and call the regarding methods
         // either set event handlers in the fxml file (onAction) or add them here
 
-        searchBtn.setOnAction(actionEvent -> {observableMovies.clear();searchGenre();searchText(genreResults);});
+        searchBtn.setOnAction(actionEvent -> {searchGenre();searchText(genreResults);});
 
         // Sort button example:
         sortBtn.setOnAction(actionEvent -> {
@@ -78,6 +78,7 @@ public class HomeController implements Initializable {
 
 
     public void searchGenre(){
+        observableMovies.clear();
         String selectedGenre = genreComboBox.getValue().toString();
         genreResults.clear();
         //System.out.println(selectedGenre);
@@ -109,8 +110,6 @@ public class HomeController implements Initializable {
                     searchResults.add(movie);
                 }
             }
-
-
             observableMovies.addAll(searchResults);
 
 
