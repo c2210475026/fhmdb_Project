@@ -56,32 +56,7 @@ public class HomeController implements Initializable {
         // TODO add event handlers to buttons and call the regarding methods
         // either set event handlers in the fxml file (onAction) or add them here
 
-        genreComboBox.setOnAction(actionEvent -> {
-            String selectedGenre = genreComboBox.getValue().toString();
-            System.out.println(selectedGenre);
-            ObservableList<Movie> genreResults = FXCollections.observableArrayList();
-            for (Movie movie : allMovies){
-                System.out.println(selectedGenre+" "+ movie.getGenres());
-                if(movie.getGenres().contains(selectedGenre)) genreResults.add(movie);
-
-            }
-            observableMovies.clear();
-            observableMovies.addAll(genreResults);
-        });
-
-        searchField.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            String searchTerm = newValue.toLowerCase();
-            ObservableList<Movie> searchResults = FXCollections.observableArrayList();
-
-            for (Movie movie : allMovies) {
-                if (movie.getTitle().toLowerCase().contains(searchTerm) || movie.getDescription().toLowerCase().contains(searchTerm)|| movie.getGenres().contains(searchTerm)) {
-                    searchResults.add(movie);
-                }
-            }
-
-            observableMovies.clear();
-            observableMovies.addAll(searchResults);
-        });
+        searchBtn.setOnAction(actionEvent -> {observableMovies.clear();searchGenre();searchText(genreResults);});
 
         // Sort button example:
         sortBtn.setOnAction(actionEvent -> {
@@ -96,6 +71,26 @@ public class HomeController implements Initializable {
 
 
     }
+
+
+    public void searchGenre(){
+        String selectedGenre = genreComboBox.getValue().toString();
+        genreResults.clear();
+        //System.out.println(selectedGenre);
+        for (Movie movie : allMovies){
+            String movieGenres=movie.getGenres().toString();
+            if(movieGenres.contains(selectedGenre)){
+                genreResults.add(movie);
+                //System.out.println(movie.getTitle());
+            }
+
+        }
+        /*for (Movie movie : genreResults){
+            System.out.println(movie.getTitle());
+        }*/
+
+    }
+
 
     /**
      * List will be sorted ascended or descended
