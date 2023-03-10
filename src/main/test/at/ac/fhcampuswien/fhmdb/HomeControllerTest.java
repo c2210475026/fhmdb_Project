@@ -115,6 +115,26 @@ class HomeControllerTest {
     }
 
     @Test
+    void nullObjects_in_list_should_be_deleted(){
+        HomeController homeController = new HomeController();
+        List<Movie> movieList = new ArrayList<>();
+        Movie movie1 = new Movie("D","doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER));
+        Movie movie2 = new Movie("A","doesnt matter", Arrays.asList(Movie.Genre.ACTION, Movie.Genre.ADVENTURE, Movie.Genre.FANTASY));
+        Movie movie3 = new Movie(null,"doesnt matter", Arrays.asList(Movie.Genre.ACTION, Movie.Genre.ADVENTURE, Movie.Genre.FANTASY));
+        movieList.add(null);
+        movieList.add(movie1);
+        movieList.add(null);
+        movieList.add(movie2);
+        movieList.add(movie3);
+        //action
+        homeController.setupListWithOutNullObjects(movieList);
+        //assert
+        assertEquals(movie1,movieList.get(0));
+        assertEquals(movie2,movieList.get(1));
+        assertEquals(movie3,movieList.get(2));
+    }
+
+    @Test
     void test_movies_filter_by_genre(){
         //setup
         HomeController homeController = new HomeController();

@@ -2,6 +2,8 @@ package at.ac.fhcampuswien.fhmdb.models;
 
 
 
+import javafx.scene.shape.MoveTo;
+
 import java.lang.module.ModuleDescriptor;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,9 +73,9 @@ public class Movie implements Comparable<Movie>{
     }
     @Override
     public int compareTo(Movie o) {
-        if (Objects.equals(this.getTitle(), null) || Objects.equals(o.getTitle(), null)) {
-            if (Objects.equals(this.getTitle(), null)) {
-                if (Objects.equals(o.getTitle(), null)) {
+        if (this.getTitle() == null || o.getTitle() == null) {
+            if (this.getTitle() == null) {
+                if (o.getTitle() == null) {
                     return 0;
                 } else {
                     return 1;
@@ -86,5 +88,13 @@ public class Movie implements Comparable<Movie>{
         }
     }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Movie){
+            Movie other = (Movie) obj;
+            return this.getTitle() == other.getTitle() && this.getDescription() == other.getDescription() && this.getGenres() == other.getGenres();
+        }else {
+            return false;
+        }
+    }
 }
