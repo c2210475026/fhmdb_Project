@@ -56,8 +56,16 @@ public class HomeController implements Initializable {
         // either set event handlers in the fxml file (onAction) or add them here
 
         genreComboBox.setOnAction(actionEvent -> {
-            genreComboBox.getValue();
+            String selectedGenre = genreComboBox.getValue().toString();
+            System.out.println(selectedGenre);
+            ObservableList<Movie> genreResults = FXCollections.observableArrayList();
+            for (Movie movie : allMovies){
+                System.out.println(selectedGenre+" "+ movie.getGenres());
+                if(movie.getGenres().contains(selectedGenre)) genreResults.add(movie);
 
+            }
+            observableMovies.clear();
+            observableMovies.addAll(genreResults);
         });
 
         searchField.textProperty().addListener((observableValue, oldValue, newValue) -> {
