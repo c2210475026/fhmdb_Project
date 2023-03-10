@@ -58,6 +58,8 @@ public class Movie implements Comparable<Movie>{
         movies.add(new Movie("The Matrix", "A science fiction action film about a computer hacker who discovers the truth about reality.", Arrays.asList(Movie.Genre.ACTION, Movie.Genre.SCIENCE_FICTION)));
         movies.add(new Movie("Pulp Fiction", "A crime film featuring multiple storylines and characters in Los Angeles.", Arrays.asList(Movie.Genre.CRIME, Movie.Genre.DRAMA)));
         movies.add(new Movie("Jurassic Park", "A science fiction adventure film about a theme park with genetically cloned dinosaurs.", Arrays.asList(Movie.Genre.ADVENTURE, Movie.Genre.SCIENCE_FICTION)));
+        movies.add(null);
+        movies.add(new Movie(null, "A space opera about a group of rebels fighting against the evil Empire.", Arrays.asList(Movie.Genre.ACTION, Movie.Genre.ADVENTURE, Movie.Genre.FANTASY)));
         // return the list of movies
         return movies;
     }
