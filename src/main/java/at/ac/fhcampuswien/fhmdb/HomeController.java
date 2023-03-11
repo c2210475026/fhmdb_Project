@@ -36,8 +36,9 @@ public class HomeController implements Initializable {
     public List<Movie> allMovies = Movie.initializeMovies();
 
     private  ObservableList<Movie> observableMovies = FXCollections.observableArrayList();   // automatically updates corresponding UI elements when underlying data changes
+    private ObservableList<Movie> searchResults = FXCollections.observableArrayList();
 
-    List<Movie> genreResults = FXCollections.observableArrayList();
+    private List<Movie> genreResults = FXCollections.observableArrayList();
 
 
     @Override
@@ -45,9 +46,12 @@ public class HomeController implements Initializable {
         setupListWithOutNullObjects(allMovies);
         observableMovies.addAll(allMovies);         // add dummy data to observable list
 
-        // initialize UI stuff
-        movieListView.setItems(observableMovies);   // set data of observable list to list view
-        movieListView.setCellFactory(movieListView -> new MovieCell()); // use custom cell factory to display data
+
+            // initialize UI stuff
+            movieListView.setItems(observableMovies);   // set data of observable list to list view
+            movieListView.setCellFactory(movieListView -> new MovieCell()); // use custom cell factory to display data
+
+
 
         // TODO add genre filter items with genreComboBox.getItems().addAll(...)
         genreComboBox.setPromptText("Filter by Genre");
@@ -101,7 +105,6 @@ public class HomeController implements Initializable {
         String textValue = searchField.getText();
         observableMovies.clear();
         String searchTerm = textValue.toLowerCase();
-        ObservableList<Movie> searchResults = FXCollections.observableArrayList();
         searchResults.clear();
 
             for (Movie movie : genreSearchList) {
@@ -110,7 +113,7 @@ public class HomeController implements Initializable {
                     searchResults.add(movie);
                 }
             }
-            observableMovies.addAll(searchResults);
+           observableMovies.addAll(searchResults);
 
 
     }
