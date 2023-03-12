@@ -36,7 +36,6 @@ public class HomeController implements Initializable {
     public List<Movie> allMovies = Movie.initializeMovies();
 
     private  ObservableList<Movie> observableMovies = FXCollections.observableArrayList();   // automatically updates corresponding UI elements when underlying data changes
-    private ObservableList<Movie> searchResults = FXCollections.observableArrayList();
 
     private List<Movie> genreResults = FXCollections.observableArrayList();
 
@@ -64,7 +63,7 @@ public class HomeController implements Initializable {
         // TODO add event handlers to buttons and call the regarding methods
         // either set event handlers in the fxml file (onAction) or add them here
 
-        searchBtn.setOnAction(actionEvent -> {searchGenre();searchText(genreResults);});
+        searchBtn.setOnAction(actionEvent -> {searchGenre();searchText(genreResults,searchField.getText());});
 
         // Sort button example:
         sortBtn.setOnAction(actionEvent -> {
@@ -100,21 +99,19 @@ public class HomeController implements Initializable {
     }
 
 
-    public void searchText(List<Movie> genreSearchList){
-        String textValue = searchField.getText();
+    public List<Movie> searchText(List<Movie> genreSearchList,String textValue){
         observableMovies.clear();
+        List<Movie> searchResults = FXCollections.observableArrayList();
         String searchTerm = textValue.toLowerCase();
         searchResults.clear();
 
             for (Movie movie : genreSearchList) {
-                String movieGenres=movie.getGenres().toString();
-                if (movie.getTitle().toLowerCase().contains(searchTerm) || movie.getDescription().toLowerCase().contains(searchTerm)|| movieGenres.contains(searchTerm)) {
+                if (movie.getTitle().toLowerCase().contains(searchTerm) || movie.getDescription().toLowerCase().contains(searchTerm)) {
                     searchResults.add(movie);
                 }
             }
            observableMovies.addAll(searchResults);
-
-
+            return searchResults;
     }
 
     /**
