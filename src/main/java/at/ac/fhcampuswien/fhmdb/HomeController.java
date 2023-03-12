@@ -60,12 +60,14 @@ public class HomeController implements Initializable {
                 "CRIME", "DRAMA", "DOCUMENTARY", "FAMILY", "FANTASY", "HISTORY", "HORROR",
                 "MUSICAL", "MYSTERY", "ROMANCE", "SCIENCE_FICTION", "SPORT", "THRILLER", "WAR",
                 "WESTERN");
+        //genreComboBox.setValue("Filter by Genre");
 
 
         // TODO add event handlers to buttons and call the regarding methods
         // either set event handlers in the fxml file (onAction) or add them here
 
         searchBtn.setOnAction(actionEvent -> {
+
             String selectedGenre = genreComboBox.getValue().toString();
             searchGenre(selectedGenre);
             searchText(genreResults,searchField.getText());});
@@ -101,9 +103,13 @@ public class HomeController implements Initializable {
     }
 
     public void searchGenre(String selectedGenre){
+
         observableMovies.clear();
-        //String selectedGenre = genreComboBox.getValue().toString();
         genreResults.clear();
+        if(selectedGenre=="Filter by Genre"){
+            genreResults.addAll(allMovies);
+            return;
+        }
         //System.out.println(selectedGenre);
         for (Movie movie : allMovies){
             String movieGenres=movie.getGenres().toString();
