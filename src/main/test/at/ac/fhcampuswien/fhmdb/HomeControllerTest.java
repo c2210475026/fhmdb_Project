@@ -135,6 +135,17 @@ class HomeControllerTest {
     }
 
     @Test
+    void after_reset_filter_all_movies_should_be_available(){
+        HomeController homeController = new HomeController();
+        homeController.allMovies.clear();
+        homeController.allMovies.add(new Movie("D","doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
+        homeController.allMovies.add(new Movie("A","doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
+        homeController.allMovies.add(new Movie("C","doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
+        homeController.allMovies.add(new Movie("F","doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
+        homeController.allMovies.add(new Movie("D","doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
+    }
+
+    @Test
     void test_movies_filter_by_genre(){
         //setup
         HomeController homeController = new HomeController();

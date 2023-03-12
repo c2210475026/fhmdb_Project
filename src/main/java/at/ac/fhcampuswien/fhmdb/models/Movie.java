@@ -34,11 +34,7 @@ public class Movie implements Comparable<Movie>{
     }
 
     public String getTitle() {
-        try{
-            return title;
-        }catch (NullPointerException e){
-            return null;
-        }
+        return title;
     }
 
 
