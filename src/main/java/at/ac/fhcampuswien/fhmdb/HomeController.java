@@ -78,7 +78,11 @@ public class HomeController implements Initializable {
             }
         });
 
-        resetBtn.setOnAction(actionEvent -> {resetFilter();});
+        resetBtn.setOnAction(actionEvent -> {
+            resetMovieFilter(observableMovies,allMovies);
+            genreComboBox.setValue("Filter by Genre");
+            searchField.clear();
+        });
 
 
     }
@@ -86,11 +90,9 @@ public class HomeController implements Initializable {
     /**
      * Filter is getting reseted, All available Movies are displayed
      */
-    public void resetFilter(){
-        genreComboBox.setValue("Filter by Genre");
-        searchField.clear();
-        observableMovies.clear();
-        observableMovies.addAll(allMovies);
+    public void resetMovieFilter(List<Movie> currentMovieList,List<Movie> initMovieList){
+        currentMovieList.clear();
+        currentMovieList.addAll(initMovieList);
     }
 
     public void searchGenre(){

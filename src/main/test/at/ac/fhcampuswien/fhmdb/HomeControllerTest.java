@@ -135,14 +135,24 @@ class HomeControllerTest {
     }
 
     @Test
-    void after_reset_filter_all_movies_should_be_available(){
+    void after_reset_filter_initMovieList_should_be_currentList(){
         HomeController homeController = new HomeController();
-        homeController.allMovies.clear();
-        homeController.allMovies.add(new Movie("D","doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
-        homeController.allMovies.add(new Movie("A","doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
-        homeController.allMovies.add(new Movie("C","doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
-        homeController.allMovies.add(new Movie("F","doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
-        homeController.allMovies.add(new Movie("D","doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
+        List<Movie> currentList = new ArrayList<>();
+        currentList.add(new Movie(null,"doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
+        currentList.add(new Movie("D","doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
+        currentList.add(new Movie(null,"doesnt matter", Arrays.asList(Movie.Genre.ACTION, Movie.Genre.ADVENTURE, Movie.Genre.FANTASY)));
+        currentList.add(new Movie("A","doesnt matter", Arrays.asList(Movie.Genre.ACTION, Movie.Genre.ADVENTURE, Movie.Genre.FANTASY)));
+
+        List<Movie> initList = new ArrayList<>();
+        initList.add(new Movie("B","doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
+        initList.add(new Movie("D","doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
+        initList.add(new Movie("C","doesnt matter", Arrays.asList(Movie.Genre.ACTION, Movie.Genre.ADVENTURE, Movie.Genre.FANTASY)));
+        initList.add(new Movie("A","doesnt matter", Arrays.asList(Movie.Genre.ACTION, Movie.Genre.ADVENTURE, Movie.Genre.FANTASY)));
+
+        //action
+        homeController.resetMovieFilter(currentList,initList);
+        //assert
+        assertEquals(currentList,initList);
     }
 
     @Test
