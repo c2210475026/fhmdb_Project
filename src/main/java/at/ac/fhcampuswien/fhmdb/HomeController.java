@@ -34,12 +34,10 @@ public class HomeController implements Initializable {
     public JFXButton sortBtn;
 
     public List<Movie> allMovies = Movie.initializeMovies();
-    @FXML
-    public JFXButton resetBtn;
 
     private  ObservableList<Movie> observableMovies = FXCollections.observableArrayList();   // automatically updates corresponding UI elements when underlying data changes
 
-    private List<Movie> genreResults = FXCollections.observableArrayList();
+    List<Movie> genreResults = FXCollections.observableArrayList();
 
 
     @Override
@@ -47,12 +45,9 @@ public class HomeController implements Initializable {
         setupListWithOutNullObjects(allMovies);
         observableMovies.addAll(allMovies);         // add dummy data to observable list
 
-
         // initialize UI stuff
         movieListView.setItems(observableMovies);   // set data of observable list to list view
         movieListView.setCellFactory(movieListView -> new MovieCell()); // use custom cell factory to display data
-
-
 
         // TODO add genre filter items with genreComboBox.getItems().addAll(...)
         genreComboBox.setPromptText("Filter by Genre");
@@ -65,7 +60,7 @@ public class HomeController implements Initializable {
         // TODO add event handlers to buttons and call the regarding methods
         // either set event handlers in the fxml file (onAction) or add them here
 
-        searchBtn.setOnAction(actionEvent -> {searchGenre();searchText(genreResults,searchField.getText());});
+        searchBtn.setOnAction(actionEvent -> {searchGenre();searchText(genreResults);});
 
         // Sort button example:
         sortBtn.setOnAction(actionEvent -> {
@@ -78,24 +73,9 @@ public class HomeController implements Initializable {
             }
         });
 
-        resetBtn.setOnAction(actionEvent -> {
-            resetMovieFilter(observableMovies,allMovies);
-            genreComboBox.setValue("Filter by Genre");
-            searchField.clear();
-        });
-
 
     }
 
-    /**
-     * currentMovieList will be replaced by initMovieList
-     * @param currentMovieList MovieList that is currently displayed
-     * @param initMovieList List that should be displayed after reseting Filter
-     */
-    public void resetMovieFilter(List<Movie> currentMovieList,List<Movie> initMovieList){
-        currentMovieList.clear();
-        currentMovieList.addAll(initMovieList);
-    }
 
     public void searchGenre(){
         observableMovies.clear();
@@ -117,19 +97,22 @@ public class HomeController implements Initializable {
     }
 
 
-    public List<Movie> searchText(List<Movie> genreSearchList,String textValue){
+    public void searchText(List<Movie> genreSearchList){
+        String textValue = searchField.getText();
         observableMovies.clear();
-        List<Movie> searchResults = FXCollections.observableArrayList();
         String searchTerm = textValue.toLowerCase();
+        ObservableList<Movie> searchResults = FXCollections.observableArrayList();
         searchResults.clear();
 
             for (Movie movie : genreSearchList) {
-                if (movie.getTitle().toLowerCase().contains(searchTerm) || movie.getDescription().toLowerCase().contains(searchTerm)) {
+                String movieGenres=movie.getGenres().toString();
+                if (movie.getTitle().toLowerCase().contains(searchTerm) || movie.getDescription().toLowerCase().contains(searchTerm)|| movieGenres.contains(searchTerm)) {
                     searchResults.add(movie);
                 }
             }
-           observableMovies.addAll(searchResults);
-            return searchResults;
+            observableMovies.addAll(searchResults);
+
+
     }
 
     /**
