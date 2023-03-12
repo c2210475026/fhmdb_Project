@@ -39,7 +39,7 @@ public class HomeController implements Initializable {
 
     private  ObservableList<Movie> observableMovies = FXCollections.observableArrayList();   // automatically updates corresponding UI elements when underlying data changes
 
-    private List<Movie> genreResults = FXCollections.observableArrayList();
+    List<Movie> genreResults = FXCollections.observableArrayList();
 
 
     @Override
@@ -65,7 +65,10 @@ public class HomeController implements Initializable {
         // TODO add event handlers to buttons and call the regarding methods
         // either set event handlers in the fxml file (onAction) or add them here
 
-        searchBtn.setOnAction(actionEvent -> {searchGenre();searchText(genreResults,searchField.getText());});
+        searchBtn.setOnAction(actionEvent -> {
+            String selectedGenre = genreComboBox.getValue().toString();
+            searchGenre(selectedGenre);
+            searchText(genreResults,searchField.getText());});
 
         // Sort button example:
         sortBtn.setOnAction(actionEvent -> {
@@ -97,9 +100,9 @@ public class HomeController implements Initializable {
         currentMovieList.addAll(initMovieList);
     }
 
-    public void searchGenre(){
+    public void searchGenre(String selectedGenre){
         observableMovies.clear();
-        String selectedGenre = genreComboBox.getValue().toString();
+        //String selectedGenre = genreComboBox.getValue().toString();
         genreResults.clear();
         //System.out.println(selectedGenre);
         for (Movie movie : allMovies){

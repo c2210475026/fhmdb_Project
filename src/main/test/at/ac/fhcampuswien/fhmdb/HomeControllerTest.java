@@ -155,17 +155,6 @@ class HomeControllerTest {
         assertEquals(currentList,initList);
     }
 
-    @Test
-    void test_movies_filter_by_genre(){
-        //setup
-        HomeController homeController = new HomeController();
-        homeController.allMovies.clear();
-        homeController.allMovies.add(new Movie("Abction Movie", "doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
-        //action
-        //homeController.sortList(HomeController.movieList, false);
-        //assert
-        //assertEquals("D", movieList.get(0).getTitle());
-    }
 
     @Test
     public void tests_if_title_and_description_is_searchable() {
@@ -215,5 +204,24 @@ class HomeControllerTest {
         searchResults = homeController.searchText(genreSearchList, "253_:_:_.jsj");
         assertEquals(0, searchResults.size());
 
+    }
+    @Test
+    void tests_movie_filtering_by_genre(){
+        //setup
+        HomeController homeController = new HomeController();
+        homeController.allMovies.clear();
+        homeController.allMovies.add(new Movie("Action Movie", "doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION, Movie.Genre.THRILLER)));
+        homeController.allMovies.add(new Movie("Boring Movie", "doesnt matter", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.THRILLER)));
+
+
+        //action
+        homeController.searchGenre("ACTION");
+        //assert
+        String testList="";
+        for (Movie movie : homeController.genreResults){
+            testList+=movie.getTitle().toString();
+        }
+        assertTrue(testList.contains("Action Movie"));
+        assertFalse(testList.contains("Boring Movie"));
     }
 }
