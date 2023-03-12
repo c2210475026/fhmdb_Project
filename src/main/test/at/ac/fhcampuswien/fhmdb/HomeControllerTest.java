@@ -156,4 +156,54 @@ class HomeControllerTest {
         //assert
         //assertEquals("D", movieList.get(0).getTitle());
     }
+
+    @Test
+    public void tests_if_title_and_description_is_searchable() {
+        //setup
+        List<Movie> genreSearchList = new ArrayList<>();
+        Movie movie1 = new Movie("A","text1", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION));
+        Movie movie2 = new Movie("B","text1", Arrays.asList(Movie.Genre.ACTION,Movie.Genre.ADVENTURE));
+        Movie movie3 = new Movie("C","text2", Arrays.asList(Movie.Genre.ACTION,Movie.Genre.FANTASY));
+        genreSearchList.add(movie1);
+        genreSearchList.add(movie2);
+        genreSearchList.add(movie3);
+
+        //action
+        HomeController homeController = new HomeController();
+
+        //assert
+        List<Movie> searchResults =  homeController.searchText(genreSearchList,"A");
+        assertEquals(1, searchResults.size());
+
+        searchResults = homeController.searchText(genreSearchList, "text1");
+        assertEquals(2, searchResults.size());
+
+    }
+
+    @Test
+    public void tests_if_textfield_is_null_or_invalid_text() {
+        //setup
+        List<Movie> genreSearchList = new ArrayList<>();
+        Movie movie1 = new Movie("A","text1", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION));
+        Movie movie2 = new Movie("B","text1", Arrays.asList(Movie.Genre.ACTION,Movie.Genre.ADVENTURE));
+        Movie movie3 = new Movie("C","text2", Arrays.asList(Movie.Genre.ACTION,Movie.Genre.FANTASY));
+        genreSearchList.add(movie1);
+        genreSearchList.add(movie2);
+        genreSearchList.add(movie3);
+
+        //action
+        HomeController homeController = new HomeController();
+
+
+        //assert
+        List<Movie> searchResults =  homeController.searchText(genreSearchList,"");
+        assertEquals(3, searchResults.size());
+
+        searchResults =  homeController.searchText(genreSearchList," ");
+        assertEquals(0, searchResults.size());
+
+        searchResults = homeController.searchText(genreSearchList, "253_:_:_.jsj");
+        assertEquals(0, searchResults.size());
+
+    }
 }
