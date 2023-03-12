@@ -88,7 +88,9 @@ public class HomeController implements Initializable {
     }
 
     /**
-     * Filter is getting reseted, All available Movies are displayed
+     * currentMovieList will be replaced by initMovieList
+     * @param currentMovieList MovieList that is currently displayed
+     * @param initMovieList List that should be displayed after reseting Filter
      */
     public void resetMovieFilter(List<Movie> currentMovieList,List<Movie> initMovieList){
         currentMovieList.clear();
