@@ -205,6 +205,33 @@ class HomeControllerTest {
         assertEquals(0, searchResults.size());
 
     }
+
+
+    @Test
+    public void test_if_the_right_movie_has_been_searched_up() {
+        //setup
+        List<Movie> genreSearchList = new ArrayList<>();
+        Movie movie1 = new Movie("A","text1", Arrays.asList(Movie.Genre.DRAMA, Movie.Genre.ACTION));
+        Movie movie2 = new Movie("B","text1", Arrays.asList(Movie.Genre.ACTION,Movie.Genre.ADVENTURE));
+        Movie movie3 = new Movie("C","text2", Arrays.asList(Movie.Genre.ACTION,Movie.Genre.FANTASY));
+        genreSearchList.add(movie1);
+        genreSearchList.add(movie2);
+        genreSearchList.add(movie3);
+
+        //action
+        HomeController homeController = new HomeController();
+
+
+        //assert
+        List<Movie> searchResults =  homeController.searchText(genreSearchList,"A");
+        assertEquals(movie1.getTitle(), searchResults.get(0).getTitle());
+
+        searchResults =  homeController.searchText(genreSearchList,"text2");
+        assertEquals(movie3.getDescription(), searchResults.get(0).getDescription());
+
+    }
+
+
     @Test
     void tests_movie_filtering_by_genre(){
         //setup
