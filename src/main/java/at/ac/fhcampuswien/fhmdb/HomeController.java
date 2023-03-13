@@ -112,7 +112,7 @@ public class HomeController implements Initializable {
 
         observableMovies.clear();
         genreResults.clear();
-        if(selectedGenre=="Filter by Genre"){
+        if(selectedGenre.equals("Filter by Genre")){
             genreResults.addAll(allMovies);
             return;
         }
